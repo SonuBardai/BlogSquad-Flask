@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block body %}
+<h3 class="my-2 text-center">Login</h3>
+<form action="" method="post">
+    <div class="border form-group d-flex flex-column justify-content-center align-items-center">
+        {{ form.hidden_tag() }}
+        <div class="d-flex flex-column justify-content-center align-items-center my-3">
+            {{ form.username.label(class="form-text text-light") }}
+                {% if form.username.errors %}
+                    {% for error in form.username.errors %}
+                        <small class="invalid-input">{{error}}</small>
+                    {% endfor %}
+                {% endif %}
+            {{ form.username(class="form-control col-10 mx-5 mb-3") }}
+            
+            
+            {{ form.password.label(class="form-text text-light") }}
+            
+            {{ form.password(class="form-control col-10 mx-5") }}
+        </div>
+        <div class="row align-items-center">
+            {{ form.remember(class="px-2") }}
+            {{ form.remember.label(class="px-2 text-light") }}
+        </div>
+        <div class="row">
+            {{ form.submit(class="btn btn-secondary mb-2") }}
+        </div>
+        <small class="muted">Forgot Password?<a href="{{url_for('user.reset_password_email')}}"> Reset Here.</a></small>
+        <small class="muted">Don't have an account? <a href="{{url_for('user.register')}}">Register Now</a></small>
+    </div>
+</form>
+{% endblock %}

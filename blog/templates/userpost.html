@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block body %}
+<h3 class="my-2 text-center">{{ legend }}</h3>
+<form action="" method="post">
+    <div class="form-group">
+        {{ form.hidden_tag() }}
+        <div class="my-3 border px-5 py-2 rounded">
+            {{ form.title.label(class="form-text text-light") }}
+            {% if form.title.errors %}
+            {{ form.title(class="form-control form-control ") }}
+            <div class="text-danger">
+                {% for error in form.title.errors %}
+                <small>{{error}}</small>
+                {% endfor %}
+            </div>
+            {% else %}
+            {{ form.title(class="form-control form-control ") }}
+            {% endif %}
+
+            {{ form.content.label(class="form-text text-light") }}
+            {% if form.content.errors %}
+            {{ form.content(class="form-control form-control-lg mb-3 pb-5") }}
+            <div class="text-danger">
+                {% for error in form.content.errors %}
+                <small>{{ error }}</small>
+                {% endfor %}
+            </div>
+            {% else %}
+            {{ form.content(id='content', class="form-control form-control-lg mb-3 pb-5") }}
+            {% endif %}
+
+
+            <div class="row">
+                {{ form.submit(class="btn btn-secondary mb-2") }}
+            </div>
+        </div>
+</form>
+<style>
+    #content{
+        height: 350px; 
+    }
+</style>
+{% endblock %}

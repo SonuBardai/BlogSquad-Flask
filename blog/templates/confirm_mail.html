@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block body %}
+<h3 class="my-2 text-center">An email has been sent to {{ email }}. Please click the link in the email to confirm the email-address.</h3>
+
+<a href="{{ link }}"><p class='text-light'>Emailed Link: <br>{{ link }}</p></a>
+<style>
+    #verify_email{
+        display:none
+    }
+</style>
+{% endblock %}

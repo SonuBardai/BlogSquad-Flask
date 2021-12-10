@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+{% block body %}
+<h3 class="my-2 text-center">Register</h3>
+<form action="" method="post">
+    <div class="form-group d-flex flex-column justify-content-center align-items-center">
+        {{ form.hidden_tag() }}
+        <div class="d-flex flex-column justify-content-center align-items-center my-3 border px-5 py-2 rounded">
+            {{ form.username.label(class="form-text text-light") }}
+                {% if form.username.errors %}
+                {{ form.username(class="form-control form-control col-10 mx-5") }}
+                    <div class="text-danger">
+                        {% for error in form.username.errors %}
+                        <small>{{error}}</small>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.username(class="form-control form-control col-10 mx-5 mb-3") }}
+                {% endif %}
+
+            {{ form.email.label(class="form-text text-light") }}
+            {% if form.email.errors %}
+                {{ form.email(class="form-control border-danger form-control col-10 mx-5") }}
+                <div class="text-danger">
+                    {% for error in form.email.errors %}
+                        <small>{{ error }}</small>
+                        {% endfor %}
+                </div>
+            {% else %}
+                {{ form.email(class="form-control form-control col-10 mx-5") }}
+            {% endif %}
+            
+            {{ form.password.label(class="form-text text-light") }}
+            {% if form.password.errors %}
+                    <div class="text-danger">
+                        {% for error in form.password.errors %}
+                        <small>{{error}}</small>
+                        {% endfor %}
+                    </div>
+            {% else %}
+                {{ form.password(class="form-control form-control col-10 mx-5") }}
+            {% endif %}
+                    
+            {{ form.confirm_password.label(class="form-text text-light") }}
+            {% if form.confirm_password.errors %}
+                {{ form.confirm_password(class="form-control border-danger form-control col-10 mx-5") }}
+                <div class="text-danger">
+                    {% for error in form.confirm_password.errors %}
+                        <small>{{ error }}</small>
+                        {% endfor %}
+                </div>
+            {% else %}
+                {{ form.confirm_password(class="form-control form-control col-10 mx-5") }}
+            {% endif %}
+        </div>
+        <div class="row">
+            {{ form.submit(class="btn btn-secondary mb-2") }}
+        </div>
+        <small class="muted">Already have an account? <a href="{{url_for('user.login')}}">Login Here</a></small>
+    </div>
+</form>
+
+{% endblock %}

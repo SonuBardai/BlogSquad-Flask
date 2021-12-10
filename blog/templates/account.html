@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="content-section">
+    <div class="media">
+        <img class="rounded-circle account-img" src="{{image}}">
+        <div class="media-body">
+            <h2 class="account-heading">{{user.username}}</h2>
+            <p class="text-secondary">{{user.email}}</p>
+            <div class="row">
+                <a href='{{url_for('user.posts_by', username=user.username)}}' class='btn btn-success mx-3 mt-4'>My Posts</a>
+            </div>
+        </div>
+    </div>
+    <hr class='text-secondary'>
+    <h3 class="my-2 text-center">Account Info</h3>
+    <form action="" method='post' enctype="multipart/form-data">
+        <div class="form-group d-flex flex-column">
+            {{ form.hidden_tag() }}
+            <div class="d-flex flex-column justify-content-left align-items-left my-3 border px-5 py-2 rounded">
+                {{ form.username.label(class="form-text text-light") }}
+                {% if form.username.errors %}
+                {{ form.username(class="form-control form-control col-10 mx-5") }}
+                <div class="text-danger">
+                    {% for error in form.username.errors %}
+                    <small>{{error}}</small>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.username(class="form-control form-control col-10 mx-5 mb-3") }}
+                {% endif %}
+
+                {{ form.email.label(class="form-text text-light") }}
+                {% if form.email.errors %}
+                {{ form.email(class="form-control border-danger form-control col-10 mx-5") }}
+                <div class="text-danger">
+                    {% for error in form.email.errors %}
+                    <small>{{ error }}</small>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.email(class="form-control col-10 mx-5") }}
+                {% endif %}
+                <div class="row">
+                    <a href='{{url_for('user.delete_image')}}' class='btn btn-danger mx-3 mt-4'>Delete Profile Picture</a>
+                </div>
+                <div class="row">
+                    {{ form.image.label(class='form-control-file text-white mx-3 mt-3') }}
+                    {{ form.image(class='mx-5 text-white') }}
+                    {% if form.image.errors %}
+                        {% for error in form.image.errors %}
+                            <br><span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="row">
+                    {{ form.submit(class="btn btn-secondary my-4") }}
+                </div>
+    </form>
+</div>
+{% endblock %}

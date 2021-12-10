@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="content-section">
+    <div class="media">
+        <img class="rounded-circle account-img" src="{{image}}">
+        <div class="media-body">
+            <h2 class="account-heading">Posts by {{user.username}}</h2>
+            <p class="text-secondary">{{user.email}}</p>
+            <div class="row">
+            </div>
+        </div>
+    </div>
+    <hr class='text-secondary'>
+
+    {% for post in posts.items %}
+    <article class="media content-section my-3">
+        <img class="rounded-circle article-img"
+            src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
+        <div class="media-body">
+            <div class="article-metadata">
+                <a class="mr-2" href="#">{{ post.author.username }}</a>
+                <small class="text-muted">{{ post.date.strftime('%d-%m-%Y') }}</small>
+            </div>
+            <h2><a class="article-title" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a></h2>
+            <blockquote class="article-content blockquote m-0">
+                {% if post.content | length > 250 %}
+                    <p>{{post.content[:250]}}... <small><a href="{{url_for('posts.post', post_id=post.id)}}">Read More</a></small></p>
+                {% else %}
+                <p>{{post.content[:250]}}</p>
+                {% endif %}
+            </blockquote>
+        </div>
+    </article>
+    {% endfor %}
+
+    {% for num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+    {% if num %}
+    {% if num == posts.page %}
+    <a href="{{ url_for('user.posts_by', username=user.username, page=num) }}" class="btn btn-success mb-3">{{ num }}</a>
+    {% else %}
+    <a href="{{ url_for('user.posts_by', username=user.username, page=num) }}" class="btn btn-outline-success mb-3">{{ num }}</a>
+    {% endif %}
+    {% else %}
+    <span class="text-success">. . .</span>
+    {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}
